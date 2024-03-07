@@ -1,0 +1,5 @@
+/* Style pour la galerie d'images */
+.img-container img {
+    width: 100%; /* Ajustez cette valeur pour contrôler la taille de l'image */
+    height: auto;
+    margin-bottom: 20px;

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery_style.css') }}">
+    <title>Galerie d'images</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .img-container img {
+            width: 100%; /* Adjust this value to control image size */
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Galerie d'images</h2>
+        <form action="{{ url_for('capture') }}" method="post">
+            <button type="submit" class="btn btn-primary mb-3">Capturer une image</button>
+        </form>
+        <div class="row">
+            {% for image in images %}
+                <div class="col-md-4 img-container">
+                    <!-- Adjust the 'filename' path if necessary -->
+                    <img src="{{ url_for('static', filename='images/' + image) }}" class="img-fluid">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Optional: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Optional: Refresh the page automatically after a capture -->
+    {% if request.endpoint == 'capture' %}
+    <script>
+        window.onload = function() {
+            // Refresh the page 2 seconds after a capture
+            setTimeout(function() {
+                window.location.href = "{{ url_for('galerie') }}";
+            }, 2000);
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
